@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Peak Season</title>
-  <meta name="description" content="A playful tour of the world's mountains: climb the page, meet the giants, and find your peak.">
+  <meta name="description" content="Eine verspielte Tour durch die Berge der Welt: Scroll dich nach oben, triff die Riesen und finde deinen Gipfel.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -288,9 +288,9 @@
 </head>
 <body>
 
-  <!-- Altimeter: scrolling the page = climbing Everest -->
+  <!-- Höhenmesser: Scrollen = Everest besteigen -->
   <div class="altimeter" aria-hidden="true">
-    <span class="alt-label">Altitude</span>
+    <span class="alt-label">Höhe</span>
     <div class="alt-track"><div class="alt-fill" id="altFill"></div></div>
     <span class="alt-value" id="altValue">0 m</span>
   </div>
@@ -301,9 +301,9 @@
     <div class="sun" id="sun"></div>
 
     <div class="hero-text">
-      <div class="eyebrow">A tiny tour of the big stuff</div>
+      <div class="eyebrow">Eine kleine Tour zu den ganz Großen</div>
       <h1>Peak Season</h1>
-      <p class="hero-sub">Scroll down to climb. Every pixel gets you closer to the top of the world.</p>
+      <p class="hero-sub">Scroll nach unten, um zu klettern. Jeder Pixel bringt dich näher ans Dach der Welt.</p>
     </div>
 
     <div class="layer" data-speed="0.15">
@@ -335,8 +335,8 @@
     </div>
 
     <div class="hero-actions">
-      <a class="btn" href="#summits">Start climbing ↓</a>
-      <button class="btn ghost" id="dayNight" type="button">🌙 Night mode</button>
+      <a class="btn" href="#summits">Los geht’s ↓</a>
+      <button class="btn ghost" id="dayNight" type="button">🌙 Nachtmodus</button>
     </div>
   </header>
 
@@ -345,12 +345,12 @@
     <section id="summits">
       <div class="wrap">
         <div class="section-head reveal">
-          <div class="eyebrow">Meet the giants</div>
-          <h2>The Seven Summits</h2>
-          <p>The highest peak on every continent. Tap one for a fun fact.</p>
-          <div class="unit-toggle" role="group" aria-label="Units">
-            <button type="button" class="active" data-unit="m">Metres</button>
-            <button type="button" data-unit="ft">Feet</button>
+          <div class="eyebrow">Die Riesen</div>
+          <h2>Die Seven Summits</h2>
+          <p>Der höchste Berg jedes Kontinents. Tipp einen an für einen Fun Fact.</p>
+          <div class="unit-toggle" role="group" aria-label="Einheiten">
+            <button type="button" class="active" data-unit="m">Meter</button>
+            <button type="button" data-unit="ft">Fuß</button>
           </div>
         </div>
         <div class="summits" id="summitList"></div>
@@ -361,33 +361,33 @@
     <section class="photo-section" id="photo">
       <div class="wrap">
         <figure class="photo reveal">
-          <img src="images/matterhorn.jpg" alt="The snow-covered pyramid of the Matterhorn against a deep blue sky" width="1610" height="1073" loading="lazy">
+          <img src="images/matterhorn.jpg" alt="Die schneebedeckte Pyramide des Matterhorns vor tiefblauem Himmel" width="1610" height="1073" loading="lazy">
           <figcaption>
-            <h3>The Matterhorn, 4,478 m</h3>
-            <p>Not one of the Seven Summits, but probably the most famous silhouette in the Alps. It sits on the border between Switzerland and Italy.</p>
+            <h3>Das Matterhorn, 4.478 m</h3>
+            <p>Kein Seven Summit, aber wohl die berühmteste Silhouette der Alpen. Es liegt an der Grenze zwischen der Schweiz und Italien.</p>
           </figcaption>
         </figure>
         <p class="photo-credit">
-          Photo: chil (Camptocamp.org), derivative work by Zacharie Grossen, via
+          Foto: chil (Camptocamp.org), bearbeitet von Zacharie Grossen, via
           <a href="https://commons.wikimedia.org/wiki/File:Matterhorn_from_Domh%C3%BCtte_-_2.jpg">Wikimedia Commons</a>,
           <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>.
         </p>
       </div>
     </section>
 
-    <!-- ---------- Live from Supabase ---------- -->
+    <!-- ---------- Live aus Supabase ---------- -->
     <section class="db-section" id="database">
       <div class="wrap">
         <div class="section-head reveal">
-          <div class="eyebrow">Live from the database</div>
-          <h2>Alpine peaks</h2>
-          <p>These rows are loaded straight from the <code>sample_table</code> table in Supabase each time the page opens.</p>
-          <div class="db-badge" id="dbBadge">Connecting…</div>
+          <div class="eyebrow">Live aus der Datenbank</div>
+          <h2>Alpengipfel</h2>
+          <p>Diese Zeilen werden bei jedem Seitenaufruf direkt aus der Tabelle <code>sample_table</code> in Supabase geladen.</p>
+          <div class="db-badge" id="dbBadge">Verbinde…</div>
         </div>
         <div class="db-card reveal">
           <table class="db-table">
-            <thead><tr><th>ID</th><th>Name</th><th>Description</th></tr></thead>
-            <tbody id="dbRows"><tr><td colspan="3" class="db-status">Loading…</td></tr></tbody>
+            <thead><tr><th>ID</th><th>Name</th><th>Beschreibung</th></tr></thead>
+            <tbody id="dbRows"><tr><td colspan="3" class="db-status">Wird geladen…</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -397,9 +397,9 @@
     <section class="facts-bg" id="facts">
       <div class="wrap">
         <div class="section-head reveal">
-          <div class="eyebrow">Did you know?</div>
-          <h2>Mountain trivia</h2>
-          <p>Make a guess, then tap a card to flip it.</p>
+          <div class="eyebrow">Schon gewusst?</div>
+          <h2>Berg-Wissen</h2>
+          <p>Rate zuerst, dann tipp eine Karte an, um sie umzudrehen.</p>
         </div>
         <div class="facts" id="factGrid"></div>
       </div>
@@ -409,9 +409,9 @@
     <section id="quiz">
       <div class="wrap">
         <div class="section-head reveal">
-          <div class="eyebrow">Personality test (very scientific)</div>
-          <h2>Which mountain are you?</h2>
-          <p>Three questions. Zero oxygen tanks required.</p>
+          <div class="eyebrow">Persönlichkeitstest (sehr wissenschaftlich)</div>
+          <h2>Welcher Berg bist du?</h2>
+          <p>Drei Fragen. Keine Sauerstoffflasche nötig.</p>
         </div>
         <div class="quiz reveal" id="quizBox"></div>
       </div>
@@ -421,10 +421,10 @@
   <footer>
     <div class="wrap">
       <div class="pipeline">
-        <span>💻 Local</span><i>→</i><span>🐙 GitHub</span><i>→</i><span>▲ Vercel</span><i>→</i><span>🌍 You</span>
+        <span>💻 Local</span><i>→</i><span>🐙 GitHub</span><i>→</i><span>▲ Vercel</span><i>→</i><span>🌍 Du</span>
       </div>
-      <p>This page was pushed to <strong>GitHub</strong> and deployed automatically by <strong>Vercel</strong>.</p>
-      <p><a href="https://github.com/andreasrosch86-afk/First-project">View the source on GitHub →</a></p>
+      <p>Diese Seite wurde zu <strong>GitHub</strong> gepusht und automatisch von <strong>Vercel</strong> veröffentlicht.</p>
+      <p><a href="https://github.com/andreasrosch86-afk/First-project">Quellcode auf GitHub ansehen →</a></p>
     </div>
   </footer>
 
@@ -434,8 +434,8 @@
     let unit = "m";
 
     const fmt = (m) => unit === "m"
-      ? `${Math.round(m).toLocaleString("en-US")} m`
-      : `${Math.round(m * M_TO_FT).toLocaleString("en-US")} ft`;
+      ? `${Math.round(m).toLocaleString("de-DE")} m`
+      : `${Math.round(m * M_TO_FT).toLocaleString("de-DE")} ft`;
 
     /* ---------- Stars ---------- */
     const stars = document.getElementById("stars");
@@ -453,7 +453,7 @@
     const dayNight = document.getElementById("dayNight");
     dayNight.addEventListener("click", () => {
       const night = hero.classList.toggle("night");
-      dayNight.textContent = night ? "☀️ Day mode" : "🌙 Night mode";
+      dayNight.textContent = night ? "☀️ Tagmodus" : "🌙 Nachtmodus";
     });
 
     /* ---------- Parallax + altimeter ---------- */
@@ -472,7 +472,7 @@
       const max = document.documentElement.scrollHeight - window.innerHeight;
       const pct = max > 0 ? Math.min(1, y / max) : 0;
       altFill.style.height = (pct * 100) + "%";
-      altValue.textContent = pct >= 0.995 ? "🏔️ Top!" : fmt(pct * EVEREST);
+      altValue.textContent = pct >= 0.995 ? "🏔️ Gipfel!" : fmt(pct * EVEREST);
       ticking = false;
     }
     window.addEventListener("scroll", () => {
@@ -481,13 +481,13 @@
 
     /* ---------- Summits ---------- */
     const summits = [
-      { name: "Everest", where: "Asia", h: 8849, fact: "Known as Chomolungma in Tibetan and Sagarmatha in Nepali. Its summit pushes up by a few millimetres every year as the Indian plate keeps shoving into Asia." },
-      { name: "Aconcagua", where: "South America", h: 6961, fact: "The highest mountain outside Asia, and the tallest peak in both the Southern and Western Hemispheres." },
-      { name: "Denali", where: "North America", h: 6190, fact: "Measured from base to summit (about 5,500 m), it rises higher above its surroundings than Everest does." },
-      { name: "Kilimanjaro", where: "Africa", h: 5895, fact: "The world's tallest free-standing mountain: a dormant volcano you can hike up without technical climbing gear." },
-      { name: "Elbrus", where: "Europe", h: 5642, fact: "A dormant volcano in the Caucasus with two summits. The western one is the higher." },
-      { name: "Vinson", where: "Antarctica", h: 4892, fact: "Wasn't climbed until 1966. Getting there is often harder than the climb itself." },
-      { name: "Puncak Jaya", where: "Oceania", h: 4884, fact: "One of the few places near the equator with glaciers, though they are shrinking fast." },
+      { name: "Everest", where: "Asien", h: 8849, fact: "Auf Tibetisch heißt er Chomolungma, auf Nepali Sagarmatha. Sein Gipfel wächst jedes Jahr um ein paar Millimeter, weil die Indische Platte sich weiter unter Asien schiebt." },
+      { name: "Aconcagua", where: "Südamerika", h: 6961, fact: "Der höchste Berg außerhalb Asiens und der höchste Gipfel der Süd- und der Westhalbkugel." },
+      { name: "Denali", where: "Nordamerika", h: 6190, fact: "Vom Fuß bis zum Gipfel gemessen (rund 5.500 m) ragt er höher über seine Umgebung hinaus als der Everest." },
+      { name: "Kilimanjaro", where: "Afrika", h: 5895, fact: "Der höchste freistehende Berg der Welt: ein schlafender Vulkan, den man ohne Kletterausrüstung erwandern kann." },
+      { name: "Elbrus", where: "Europa", h: 5642, fact: "Ein schlafender Vulkan im Kaukasus mit zwei Gipfeln. Der westliche ist der höhere." },
+      { name: "Vinson", where: "Antarktis", h: 4892, fact: "Wurde erst 1966 bestiegen. Die Anreise ist oft schwieriger als der Aufstieg selbst." },
+      { name: "Puncak Jaya", where: "Ozeanien", h: 4884, fact: "Einer der wenigen Orte nahe dem Äquator mit Gletschern, die allerdings schnell schrumpfen." },
     ];
     const summitList = document.getElementById("summitList");
     summitList.innerHTML = summits.map((s, i) => `
@@ -517,21 +517,21 @@
 
     /* ---------- Facts ---------- */
     const facts = [
-      { e: "🌋", q: "Which mountain is tallest from base to peak?", a: "Mauna Kea in Hawaii. Measured from its base on the ocean floor it is over 10,000 m, taller than Everest. Most of it is underwater." },
-      { e: "🌍", q: "Which summit is farthest from Earth's centre?", a: "Chimborazo in Ecuador. Earth bulges at the equator, so its peak sits about 2 km farther from the centre than Everest's." },
-      { e: "🪐", q: "What is the tallest mountain in the solar system?", a: "Olympus Mons on Mars: a volcano about 22 km high, roughly two and a half Everests." },
-      { e: "🌡️", q: "How much colder does it get as you climb?", a: "Roughly 6.5 °C for every 1,000 m you go up. At Everest's summit, that is about 57 °C colder than at sea level." },
-      { e: "🫁", q: "How thin is the air on top of Everest?", a: "Air pressure is only about a third of sea level, so every breath carries roughly a third of the oxygen." },
-      { e: "🏔️", q: "Are mountains still growing?", a: "Many are. The Himalayas keep rising as tectonic plates collide, while wind, ice and rain wear them down." },
+      { e: "🌋", q: "Welcher Berg ist vom Fuß bis zum Gipfel am höchsten?", a: "Der Mauna Kea auf Hawaii. Vom Meeresboden aus gemessen ist er über 10.000 m hoch, also höher als der Everest. Der größte Teil liegt unter Wasser." },
+      { e: "🌍", q: "Welcher Gipfel ist am weitesten vom Erdmittelpunkt entfernt?", a: "Der Chimborazo in Ecuador. Die Erde ist am Äquator ausgebeult, darum liegt sein Gipfel etwa 2 km weiter vom Mittelpunkt entfernt als der des Everest." },
+      { e: "🪐", q: "Was ist der höchste Berg im Sonnensystem?", a: "Olympus Mons auf dem Mars: ein Vulkan von etwa 22 km Höhe, rund zweieinhalb Everests." },
+      { e: "🌡️", q: "Wie viel kälter wird es beim Aufstieg?", a: "Etwa 6,5 °C pro 1.000 Höhenmeter. Auf dem Gipfel des Everest sind das rund 57 °C weniger als auf Meereshöhe." },
+      { e: "🫁", q: "Wie dünn ist die Luft auf dem Everest?", a: "Der Luftdruck beträgt nur etwa ein Drittel des Werts auf Meereshöhe, also enthält jeder Atemzug nur rund ein Drittel des Sauerstoffs." },
+      { e: "🏔️", q: "Wachsen Berge noch?", a: "Viele schon. Der Himalaya hebt sich weiter, weil Kontinentalplatten zusammenstoßen, während Wind, Eis und Regen ihn abtragen." },
     ];
     const factGrid = document.getElementById("factGrid");
     factGrid.innerHTML = facts.map(f => `
-      <button class="fact reveal" type="button" aria-label="${f.q} Tap to reveal the answer">
+      <button class="fact reveal" type="button" aria-label="${f.q} Antippen, um die Antwort zu sehen">
         <div class="fact-inner">
           <div class="fact-face fact-front">
             <div class="fact-emoji">${f.e}</div>
             <div class="fact-q">${f.q}</div>
-            <div class="fact-hint">Tap to flip ↻</div>
+            <div class="fact-hint">Antippen zum Umdrehen ↻</div>
           </div>
           <div class="fact-face fact-back"><p>${f.a}</p></div>
         </div>
@@ -543,27 +543,27 @@
 
     /* ---------- Quiz ---------- */
     const questions = [
-      { q: "Your ideal weekend?", o: [
-        ["Something extreme. Go big or go home.", "everest"],
-        ["A long hike with great views.", "kili"],
-        ["Somewhere remote, just me and the wild.", "denali"],
-        ["Cosy cabin, hot chocolate, mountain views.", "matterhorn"] ] },
-      { q: "Pick a snack for the trail.", o: [
-        ["Energy gel. Every second counts.", "everest"],
-        ["Trail mix, shared with new friends.", "kili"],
-        ["Whatever I caught and cooked myself.", "denali"],
-        ["Swiss chocolate, obviously.", "matterhorn"] ] },
-      { q: "How do your friends describe you?", o: [
-        ["Ambitious. Maybe a little too much.", "everest"],
-        ["Warm, sunny and easy to get along with.", "kili"],
-        ["Independent and a bit mysterious.", "denali"],
-        ["Stylish. Everyone wants a photo with me.", "matterhorn"] ] },
+      { q: "Dein ideales Wochenende?", o: [
+        ["Etwas Extremes. Ganz oder gar nicht.", "everest"],
+        ["Eine lange Wanderung mit toller Aussicht.", "kili"],
+        ["Irgendwo abgelegen, nur ich und die Wildnis.", "denali"],
+        ["Gemütliche Hütte, heiße Schokolade, Bergblick.", "matterhorn"] ] },
+      { q: "Wähl einen Snack für unterwegs.", o: [
+        ["Energiegel. Jede Sekunde zählt.", "everest"],
+        ["Studentenfutter, geteilt mit neuen Freunden.", "kili"],
+        ["Was ich selbst gefangen und gekocht habe.", "denali"],
+        ["Schweizer Schokolade, natürlich.", "matterhorn"] ] },
+      { q: "Wie beschreiben dich deine Freunde?", o: [
+        ["Ehrgeizig. Vielleicht ein bisschen zu sehr.", "everest"],
+        ["Herzlich, sonnig und unkompliziert.", "kili"],
+        ["Unabhängig und ein bisschen geheimnisvoll.", "denali"],
+        ["Stilvoll. Alle wollen ein Foto mit mir.", "matterhorn"] ] },
     ];
     const results = {
-      everest: { e: "🏔️", t: "You're Everest!", d: "The highest of the high. You set big goals and you're willing to suffer a bit to reach them. Just remember: the summit is only halfway." },
-      kili: { e: "🌄", t: "You're Kilimanjaro!", d: "Approachable, sunny and secretly impressive. People underestimate you, then you tower over the whole savanna." },
-      denali: { e: "🐻", t: "You're Denali!", d: "Wild, remote and wonderfully independent. You make your own weather, literally." },
-      matterhorn: { e: "📸", t: "You're the Matterhorn!", d: "That iconic pointy profile. You're the most photogenic peak in the Alps and you know it." },
+      everest: { e: "🏔️", t: "Du bist der Everest!", d: "Der Höchste der Hohen. Du setzt dir große Ziele und nimmst dafür auch Strapazen in Kauf. Denk nur dran: Der Gipfel ist erst die Hälfte." },
+      kili: { e: "🌄", t: "Du bist der Kilimandscharo!", d: "Zugänglich, sonnig und heimlich beeindruckend. Andere unterschätzen dich, und dann überragst du die ganze Savanne." },
+      denali: { e: "🐻", t: "Du bist der Denali!", d: "Wild, abgelegen und herrlich unabhängig. Du machst dein eigenes Wetter, ganz wörtlich." },
+      matterhorn: { e: "📸", t: "Du bist das Matterhorn!", d: "Dieses ikonische spitze Profil. Du bist der fotogenste Gipfel der Alpen, und das weißt du auch." },
     };
     const quizBox = document.getElementById("quizBox");
     let step = 0, score = {};
@@ -586,7 +586,7 @@
             <div class="result-emoji">${r.e}</div>
             <h3>${r.t}</h3>
             <p>${r.d}</p>
-            <button class="btn" type="button" id="retry">Take it again</button>
+            <button class="btn" type="button" id="retry">Nochmal versuchen</button>
           </div>`;
       }
     }
@@ -604,7 +604,7 @@
     renderQuiz();
 
     /* ---------- Supabase: sample_table ---------- */
-    // The publishable key is meant for browsers; Row Level Security limits it to reading this table.
+    // Der Publishable Key ist für den Browser gedacht; Row Level Security erlaubt damit nur das Lesen dieser Tabelle.
     const SUPABASE_URL = "https://jksyykxrwxmaxpbvksua.supabase.co";
     const SUPABASE_KEY = "sb_publishable_qhs1Y99JMYJmd2QakjuuOg_v9hNxluG";
     const dbRows = document.getElementById("dbRows");
@@ -618,12 +618,12 @@
       .then(rows => {
         dbRows.innerHTML = rows.length
           ? rows.map(r => `<tr><td>${esc(r.id)}</td><td>${esc(r.name)}</td><td>${esc(r.description)}</td></tr>`).join("")
-          : `<tr><td colspan="3" class="db-status">The table is empty.</td></tr>`;
-        dbBadge.textContent = `Connected · ${rows.length} row${rows.length === 1 ? "" : "s"}`;
+          : `<tr><td colspan="3" class="db-status">Die Tabelle ist leer.</td></tr>`;
+        dbBadge.textContent = `Verbunden · ${rows.length} ${rows.length === 1 ? "Zeile" : "Zeilen"}`;
       })
       .catch(err => {
-        dbRows.innerHTML = `<tr><td colspan="3" class="db-status">Couldn't load data (${esc(err.message)}).</td></tr>`;
-        dbBadge.textContent = "Not connected";
+        dbRows.innerHTML = `<tr><td colspan="3" class="db-status">Daten konnten nicht geladen werden (${esc(err.message)}).</td></tr>`;
+        dbBadge.textContent = "Nicht verbunden";
         dbBadge.classList.add("err");
       });
 
