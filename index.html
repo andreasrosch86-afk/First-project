@@ -3,50 +3,538 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>First Project</title>
+  <title>Peak Season</title>
+  <meta name="description" content="A playful tour of the world's mountains: climb the page, meet the giants, and find your peak.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f7f7f5;
-      --text: #1a1a1a;
-      --muted: #666;
-      --accent: #0070f3;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #111;
-        --text: #eee;
-        --muted: #999;
-        --accent: #3291ff;
-      }
+      --sky-top: #ffb38a;
+      --sky-bottom: #ffe6c7;
+      --m1: #7b6d8d;
+      --m2: #5a4e6e;
+      --m3: #3d3452;
+      --m4: #2a2338;
+      --snow: #ffffff;
+      --bg: #f5f1ea;
+      --surface: #ffffff;
+      --text: #1f1a2b;
+      --muted: #6b6478;
+      --accent: #e8643c;
+      --accent-2: #3a7d6b;
+      --line: #e4ddd2;
+      --shadow: 0 10px 30px rgba(31, 26, 43, 0.08);
     }
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 16px;
       background: var(--bg);
       color: var(--text);
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.5;
+      font-family: "Inter", system-ui, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
     }
-    main { max-width: 560px; text-align: center; }
-    h1 { font-size: clamp(2rem, 6vw, 3rem); margin: 0 0 0.5rem; }
-    p { color: var(--muted); margin: 0 0 1.5rem; }
-    a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 600;
+    h1, h2, h3 { font-family: "Fraunces", Georgia, serif; line-height: 1.1; margin: 0; }
+    a { color: inherit; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 560px;
+      overflow: hidden;
+      background: linear-gradient(var(--sky-top), var(--sky-bottom));
+      transition: background 0.8s ease;
     }
-    a:hover { text-decoration: underline; }
+    .hero.night { --sky-top: #0f1633; --sky-bottom: #3b3a6b; }
+    .sun {
+      position: absolute;
+      left: 50%; top: 22%;
+      width: 120px; height: 120px;
+      margin-left: -60px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff6d5 0%, #ffd27a 60%, #ffb35c 100%);
+      box-shadow: 0 0 80px 30px rgba(255, 210, 122, 0.55);
+      transition: all 0.8s ease;
+      will-change: transform;
+    }
+    .hero.night .sun {
+      background: radial-gradient(circle at 35% 35%, #ffffff 0%, #dfe3f2 70%, #b9bfd8 100%);
+      box-shadow: 0 0 60px 15px rgba(220, 225, 255, 0.35);
+      width: 90px; height: 90px; margin-left: -45px;
+    }
+    .stars { position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease; }
+    .hero.night .stars { opacity: 1; }
+    .star {
+      position: absolute; width: 2px; height: 2px; border-radius: 50%;
+      background: #fff; animation: twinkle 3s infinite ease-in-out;
+    }
+    @keyframes twinkle { 50% { opacity: 0.2; } }
+    .layer {
+      position: absolute; left: -5%; width: 110%; bottom: 0;
+      will-change: transform;
+    }
+    .layer svg { display: block; width: 100%; height: auto; }
+    .hero-text {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+      padding-top: 9vh; text-align: center; color: var(--m4);
+      z-index: 5; pointer-events: none;
+      transition: color 0.8s ease;
+    }
+    .hero.night .hero-text { color: #f1efff; }
+    .eyebrow {
+      font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 600;
+      opacity: 0.75; margin-bottom: 0.75rem;
+    }
+    .hero h1 { font-size: clamp(3rem, 11vw, 7.5rem); font-weight: 800; letter-spacing: -0.02em; }
+    .hero-sub { max-width: 30ch; margin: 1rem auto 0; font-size: clamp(1rem, 2.5vw, 1.2rem); }
+    .hero-actions {
+      position: absolute; bottom: 7vh; left: 0; right: 0; z-index: 6;
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; padding: 0 16px;
+    }
+    .btn {
+      font: inherit; font-weight: 600; cursor: pointer;
+      padding: 0.8rem 1.4rem; border-radius: 999px; border: 2px solid transparent;
+      background: var(--accent); color: #fff; text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      box-shadow: 0 6px 18px rgba(232, 100, 60, 0.35);
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); }
+    .btn.ghost {
+      background: rgba(255, 255, 255, 0.15); color: #fff; border-color: rgba(255, 255, 255, 0.7);
+      box-shadow: none; backdrop-filter: blur(4px);
+    }
+
+    /* ---------- Altimeter ---------- */
+    .altimeter {
+      position: fixed; right: 16px; top: 50%; transform: translateY(-50%);
+      z-index: 50; display: flex; flex-direction: column; align-items: center; gap: 8px;
+      font-size: 0.75rem; font-weight: 600; color: var(--text);
+      background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(6px);
+      padding: 12px 10px; border-radius: 16px; box-shadow: var(--shadow);
+    }
+    .alt-track {
+      width: 8px; height: 160px; border-radius: 99px; background: var(--line);
+      position: relative; overflow: hidden;
+    }
+    .alt-fill {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 0%;
+      background: linear-gradient(var(--accent), var(--accent-2)); border-radius: 99px;
+    }
+    .alt-value { font-variant-numeric: tabular-nums; min-width: 5ch; text-align: center; }
+    .alt-label { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* ---------- Sections ---------- */
+    section { padding: 96px 0; }
+    .section-head { max-width: 620px; margin-bottom: 40px; }
+    .section-head .eyebrow { color: var(--accent); opacity: 1; }
+    .section-head h2 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 0.75rem; }
+    .section-head p { color: var(--muted); margin: 0; font-size: 1.05rem; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* Summits */
+    .summits { display: grid; gap: 14px; }
+    .summit {
+      display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 6px 16px;
+      background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+      padding: 16px 20px; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .summit:hover { transform: translateX(4px); box-shadow: var(--shadow); }
+    .summit-name { font-weight: 600; }
+    .summit-name small { color: var(--muted); font-weight: 500; margin-left: 6px; }
+    .summit-height { font-family: "Fraunces", serif; font-weight: 800; font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+    .summit-bar { grid-column: 1 / -1; height: 10px; background: var(--line); border-radius: 99px; overflow: hidden; }
+    .summit-bar span {
+      display: block; height: 100%; width: 0; border-radius: 99px;
+      background: linear-gradient(90deg, var(--accent-2), var(--accent));
+      transition: width 1.2s cubic-bezier(.2, .8, .2, 1);
+    }
+    .summit-fact {
+      grid-column: 1 / -1; color: var(--muted); font-size: 0.95rem;
+      max-height: 0; overflow: hidden; transition: max-height 0.35s ease, margin 0.35s ease;
+    }
+    .summit.open .summit-fact { max-height: 120px; margin-top: 6px; }
+    .unit-toggle {
+      display: inline-flex; background: var(--surface); border: 1px solid var(--line);
+      border-radius: 999px; padding: 4px; margin-top: 18px;
+    }
+    .unit-toggle button {
+      font: inherit; font-weight: 600; font-size: 0.9rem; border: 0; background: transparent;
+      padding: 6px 16px; border-radius: 999px; cursor: pointer; color: var(--muted);
+    }
+    .unit-toggle button.active { background: var(--text); color: #fff; }
+
+    /* Facts */
+    .facts-bg { background: var(--m4); color: #f1efff; }
+    .facts-bg .section-head p { color: #b9b2cc; }
+    .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .fact {
+      perspective: 1000px; height: 220px; cursor: pointer; background: none; border: 0; padding: 0;
+      font: inherit; color: inherit; text-align: left;
+    }
+    .fact-inner {
+      position: relative; width: 100%; height: 100%;
+      transition: transform 0.6s cubic-bezier(.2, .8, .2, 1); transform-style: preserve-3d;
+    }
+    .fact.flipped .fact-inner { transform: rotateY(180deg); }
+    .fact-face {
+      position: absolute; inset: 0; backface-visibility: hidden; border-radius: 18px;
+      padding: 22px; display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .fact-front { background: #3d3452; border: 1px solid #554a6d; }
+    .fact-back { background: var(--accent); transform: rotateY(180deg); color: #fff; }
+    .fact-emoji { font-size: 2rem; }
+    .fact-q { font-family: "Fraunces", serif; font-size: 1.3rem; font-weight: 600; }
+    .fact-hint { font-size: 0.8rem; opacity: 0.6; }
+    .fact-back p { margin: 0; font-size: 1rem; }
+
+    /* Quiz */
+    .quiz {
+      background: var(--surface); border: 1px solid var(--line); border-radius: 24px;
+      padding: clamp(20px, 5vw, 40px); box-shadow: var(--shadow); max-width: 720px;
+    }
+    .quiz-progress { display: flex; gap: 6px; margin-bottom: 24px; }
+    .quiz-progress span { flex: 1; height: 6px; border-radius: 99px; background: var(--line); transition: background 0.3s; }
+    .quiz-progress span.done { background: var(--accent); }
+    .quiz h3 { font-size: clamp(1.4rem, 4vw, 1.9rem); margin-bottom: 20px; }
+    .options { display: grid; gap: 10px; }
+    .option {
+      font: inherit; text-align: left; cursor: pointer;
+      padding: 14px 18px; border-radius: 14px; border: 2px solid var(--line); background: var(--bg);
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+    .option:hover { border-color: var(--accent); transform: translateX(4px); }
+    .result { text-align: center; }
+    .result-emoji { font-size: 4rem; line-height: 1; }
+    .result h3 { margin: 12px 0 8px; }
+    .result p { color: var(--muted); max-width: 46ch; margin: 0 auto 24px; }
+
+    /* Footer */
+    footer {
+      background: var(--m4); color: #b9b2cc; padding: 48px 0; text-align: center; font-size: 0.9rem;
+    }
+    footer strong { color: #fff; }
+    .pipeline {
+      display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center;
+      margin-bottom: 14px; font-weight: 600; color: #f1efff;
+    }
+    .pipeline span { background: #3d3452; padding: 6px 12px; border-radius: 999px; }
+    .pipeline i { font-style: normal; opacity: 0.6; }
+
+    @media (max-width: 640px) {
+      .altimeter { right: 8px; padding: 8px 6px; }
+      .alt-track { height: 110px; }
+      section { padding: 72px 0; }
+      .wrap { padding-right: 64px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Altimeter: scrolling the page = climbing Everest -->
+  <div class="altimeter" aria-hidden="true">
+    <span class="alt-label">Altitude</span>
+    <div class="alt-track"><div class="alt-fill" id="altFill"></div></div>
+    <span class="alt-value" id="altValue">0 m</span>
+  </div>
+
+  <!-- ---------- Hero ---------- -->
+  <header class="hero" id="hero">
+    <div class="stars" id="stars"></div>
+    <div class="sun" id="sun"></div>
+
+    <div class="hero-text">
+      <div class="eyebrow">A tiny tour of the big stuff</div>
+      <h1>Peak Season</h1>
+      <p class="hero-sub">Scroll down to climb. Every pixel gets you closer to the top of the world.</p>
+    </div>
+
+    <div class="layer" data-speed="0.15">
+      <svg viewBox="0 0 1440 520" preserveAspectRatio="none" aria-hidden="true">
+        <path fill="var(--m1)" d="M0 380 L160 230 L260 300 L420 140 L560 280 L700 170 L860 320 L1000 120 L1150 270 L1300 190 L1440 300 L1440 520 L0 520 Z"/>
+        <path fill="var(--snow)" opacity=".85" d="M420 140 L455 172 L440 175 L420 160 L398 180 L385 172 Z M1000 120 L1040 158 L1022 160 L1000 145 L980 166 L962 158 Z"/>
+      </svg>
+    </div>
+    <div class="layer" data-speed="0.3">
+      <svg viewBox="0 0 1440 440" preserveAspectRatio="none" aria-hidden="true">
+        <path fill="var(--m2)" d="M0 330 L120 250 L240 300 L380 160 L520 290 L640 220 L780 110 L920 270 L1060 200 L1200 290 L1340 180 L1440 250 L1440 440 L0 440 Z"/>
+        <path fill="var(--snow)" d="M780 110 L822 150 L804 152 L790 140 L774 158 L758 146 L748 140 Z M380 160 L410 190 L395 192 L380 180 L364 194 L352 188 Z"/>
+      </svg>
+    </div>
+    <div class="layer" data-speed="0.5">
+      <svg viewBox="0 0 1440 340" preserveAspectRatio="none" aria-hidden="true">
+        <path fill="var(--m3)" d="M0 260 L180 170 L320 230 L480 120 L620 220 L760 170 L900 240 L1080 130 L1240 230 L1440 160 L1440 340 L0 340 Z"/>
+      </svg>
+    </div>
+    <div class="layer" data-speed="0.75">
+      <svg viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">
+        <path fill="var(--m4)" d="M0 150 C 200 90, 380 170, 560 120 S 900 60, 1100 130 S 1340 100, 1440 120 L1440 220 L0 220 Z"/>
+        <!-- little pine trees -->
+        <g fill="var(--m4)">
+          <path d="M140 120 l14 -40 l14 40 z M170 128 l10 -30 l10 30 z"/>
+          <path d="M1210 112 l14 -40 l14 40 z M1240 120 l10 -30 l10 30 z M1180 122 l9 -26 l9 26 z"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="hero-actions">
+      <a class="btn" href="#summits">Start climbing ↓</a>
+      <button class="btn ghost" id="dayNight" type="button">🌙 Night mode</button>
+    </div>
+  </header>
+
   <main>
-    <h1>Hello, world 👋</h1>
-    <p>This is my first project, deployed with Vercel from GitHub.</p>
-    <a href="https://github.com/andreasrosch86-afk/First-project">View the code on GitHub →</a>
+    <!-- ---------- Seven Summits ---------- -->
+    <section id="summits">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="eyebrow">Meet the giants</div>
+          <h2>The Seven Summits</h2>
+          <p>The highest peak on every continent. Tap one for a fun fact.</p>
+          <div class="unit-toggle" role="group" aria-label="Units">
+            <button type="button" class="active" data-unit="m">Metres</button>
+            <button type="button" data-unit="ft">Feet</button>
+          </div>
+        </div>
+        <div class="summits" id="summitList"></div>
+      </div>
+    </section>
+
+    <!-- ---------- Flip facts ---------- -->
+    <section class="facts-bg" id="facts">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="eyebrow">Did you know?</div>
+          <h2>Mountain trivia</h2>
+          <p>Make a guess, then tap a card to flip it.</p>
+        </div>
+        <div class="facts" id="factGrid"></div>
+      </div>
+    </section>
+
+    <!-- ---------- Quiz ---------- -->
+    <section id="quiz">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="eyebrow">Personality test (very scientific)</div>
+          <h2>Which mountain are you?</h2>
+          <p>Three questions. Zero oxygen tanks required.</p>
+        </div>
+        <div class="quiz reveal" id="quizBox"></div>
+      </div>
+    </section>
   </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="pipeline">
+        <span>💻 Local</span><i>→</i><span>🐙 GitHub</span><i>→</i><span>▲ Vercel</span><i>→</i><span>🌍 You</span>
+      </div>
+      <p>This page was pushed to <strong>GitHub</strong> and deployed automatically by <strong>Vercel</strong>.</p>
+      <p><a href="https://github.com/andreasrosch86-afk/First-project">View the source on GitHub →</a></p>
+    </div>
+  </footer>
+
+  <script>
+    const EVEREST = 8849;
+    const M_TO_FT = 3.28084;
+    let unit = "m";
+
+    const fmt = (m) => unit === "m"
+      ? `${Math.round(m).toLocaleString("en-US")} m`
+      : `${Math.round(m * M_TO_FT).toLocaleString("en-US")} ft`;
+
+    /* ---------- Stars ---------- */
+    const stars = document.getElementById("stars");
+    for (let i = 0; i < 90; i++) {
+      const s = document.createElement("div");
+      s.className = "star";
+      s.style.left = Math.random() * 100 + "%";
+      s.style.top = Math.random() * 60 + "%";
+      s.style.animationDelay = (Math.random() * 3) + "s";
+      stars.appendChild(s);
+    }
+
+    /* ---------- Day / night ---------- */
+    const hero = document.getElementById("hero");
+    const dayNight = document.getElementById("dayNight");
+    dayNight.addEventListener("click", () => {
+      const night = hero.classList.toggle("night");
+      dayNight.textContent = night ? "☀️ Day mode" : "🌙 Night mode";
+    });
+
+    /* ---------- Parallax + altimeter ---------- */
+    const layers = [...document.querySelectorAll(".layer")];
+    const sun = document.getElementById("sun");
+    const altFill = document.getElementById("altFill");
+    const altValue = document.getElementById("altValue");
+    let ticking = false;
+
+    function onScroll() {
+      const y = window.scrollY;
+      if (y < window.innerHeight * 1.2) {
+        layers.forEach(l => l.style.transform = `translateY(${y * l.dataset.speed}px)`);
+        sun.style.transform = `translateY(${y * 0.6}px)`;
+      }
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = max > 0 ? Math.min(1, y / max) : 0;
+      altFill.style.height = (pct * 100) + "%";
+      altValue.textContent = pct >= 0.995 ? "🏔️ Top!" : fmt(pct * EVEREST);
+      ticking = false;
+    }
+    window.addEventListener("scroll", () => {
+      if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
+    }, { passive: true });
+
+    /* ---------- Summits ---------- */
+    const summits = [
+      { name: "Everest", where: "Asia", h: 8849, fact: "Known as Chomolungma in Tibetan and Sagarmatha in Nepali. Its summit pushes up by a few millimetres every year as the Indian plate keeps shoving into Asia." },
+      { name: "Aconcagua", where: "South America", h: 6961, fact: "The highest mountain outside Asia, and the tallest peak in both the Southern and Western Hemispheres." },
+      { name: "Denali", where: "North America", h: 6190, fact: "Measured from base to summit (about 5,500 m), it rises higher above its surroundings than Everest does." },
+      { name: "Kilimanjaro", where: "Africa", h: 5895, fact: "The world's tallest free-standing mountain: a dormant volcano you can hike up without technical climbing gear." },
+      { name: "Elbrus", where: "Europe", h: 5642, fact: "A dormant volcano in the Caucasus with two summits. The western one is the higher." },
+      { name: "Vinson", where: "Antarctica", h: 4892, fact: "Wasn't climbed until 1966. Getting there is often harder than the climb itself." },
+      { name: "Puncak Jaya", where: "Oceania", h: 4884, fact: "One of the few places near the equator with glaciers, though they are shrinking fast." },
+    ];
+    const summitList = document.getElementById("summitList");
+    summitList.innerHTML = summits.map((s, i) => `
+      <div class="summit reveal" role="button" tabindex="0" aria-expanded="false" data-i="${i}">
+        <div class="summit-name">${s.name}<small>${s.where}</small></div>
+        <div class="summit-height" data-h="${s.h}">${fmt(s.h)}</div>
+        <div class="summit-bar"><span data-w="${(s.h / EVEREST * 100).toFixed(1)}"></span></div>
+        <div class="summit-fact">${s.fact}</div>
+      </div>`).join("");
+
+    summitList.addEventListener("click", e => toggleSummit(e.target.closest(".summit")));
+    summitList.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleSummit(e.target.closest(".summit")); }
+    });
+    function toggleSummit(el) {
+      if (!el) return;
+      const open = el.classList.toggle("open");
+      el.setAttribute("aria-expanded", open);
+    }
+
+    document.querySelectorAll(".unit-toggle button").forEach(b => b.addEventListener("click", () => {
+      unit = b.dataset.unit;
+      document.querySelectorAll(".unit-toggle button").forEach(x => x.classList.toggle("active", x === b));
+      document.querySelectorAll(".summit-height").forEach(el => el.textContent = fmt(+el.dataset.h));
+      onScroll();
+    }));
+
+    /* ---------- Facts ---------- */
+    const facts = [
+      { e: "🌋", q: "Which mountain is tallest from base to peak?", a: "Mauna Kea in Hawaii. Measured from its base on the ocean floor it is over 10,000 m, taller than Everest. Most of it is underwater." },
+      { e: "🌍", q: "Which summit is farthest from Earth's centre?", a: "Chimborazo in Ecuador. Earth bulges at the equator, so its peak sits about 2 km farther from the centre than Everest's." },
+      { e: "🪐", q: "What is the tallest mountain in the solar system?", a: "Olympus Mons on Mars: a volcano about 22 km high, roughly two and a half Everests." },
+      { e: "🌡️", q: "How much colder does it get as you climb?", a: "Roughly 6.5 °C for every 1,000 m you go up. At Everest's summit, that is about 57 °C colder than at sea level." },
+      { e: "🫁", q: "How thin is the air on top of Everest?", a: "Air pressure is only about a third of sea level, so every breath carries roughly a third of the oxygen." },
+      { e: "🏔️", q: "Are mountains still growing?", a: "Many are. The Himalayas keep rising as tectonic plates collide, while wind, ice and rain wear them down." },
+    ];
+    const factGrid = document.getElementById("factGrid");
+    factGrid.innerHTML = facts.map(f => `
+      <button class="fact reveal" type="button" aria-label="${f.q} Tap to reveal the answer">
+        <div class="fact-inner">
+          <div class="fact-face fact-front">
+            <div class="fact-emoji">${f.e}</div>
+            <div class="fact-q">${f.q}</div>
+            <div class="fact-hint">Tap to flip ↻</div>
+          </div>
+          <div class="fact-face fact-back"><p>${f.a}</p></div>
+        </div>
+      </button>`).join("");
+    factGrid.addEventListener("click", e => {
+      const card = e.target.closest(".fact");
+      if (card) card.classList.toggle("flipped");
+    });
+
+    /* ---------- Quiz ---------- */
+    const questions = [
+      { q: "Your ideal weekend?", o: [
+        ["Something extreme. Go big or go home.", "everest"],
+        ["A long hike with great views.", "kili"],
+        ["Somewhere remote, just me and the wild.", "denali"],
+        ["Cosy cabin, hot chocolate, mountain views.", "matterhorn"] ] },
+      { q: "Pick a snack for the trail.", o: [
+        ["Energy gel. Every second counts.", "everest"],
+        ["Trail mix, shared with new friends.", "kili"],
+        ["Whatever I caught and cooked myself.", "denali"],
+        ["Swiss chocolate, obviously.", "matterhorn"] ] },
+      { q: "How do your friends describe you?", o: [
+        ["Ambitious. Maybe a little too much.", "everest"],
+        ["Warm, sunny and easy to get along with.", "kili"],
+        ["Independent and a bit mysterious.", "denali"],
+        ["Stylish. Everyone wants a photo with me.", "matterhorn"] ] },
+    ];
+    const results = {
+      everest: { e: "🏔️", t: "You're Everest!", d: "The highest of the high. You set big goals and you're willing to suffer a bit to reach them. Just remember: the summit is only halfway." },
+      kili: { e: "🌄", t: "You're Kilimanjaro!", d: "Approachable, sunny and secretly impressive. People underestimate you, then you tower over the whole savanna." },
+      denali: { e: "🐻", t: "You're Denali!", d: "Wild, remote and wonderfully independent. You make your own weather, literally." },
+      matterhorn: { e: "📸", t: "You're the Matterhorn!", d: "That iconic pointy profile. You're the most photogenic peak in the Alps and you know it." },
+    };
+    const quizBox = document.getElementById("quizBox");
+    let step = 0, score = {};
+
+    function renderQuiz() {
+      const bars = questions.map((_, i) => `<span class="${i < step ? "done" : ""}"></span>`).join("");
+      if (step < questions.length) {
+        const q = questions[step];
+        quizBox.innerHTML = `
+          <div class="quiz-progress">${bars}</div>
+          <h3>${q.q}</h3>
+          <div class="options">${q.o.map(([label, key]) =>
+            `<button class="option" type="button" data-k="${key}">${label}</button>`).join("")}</div>`;
+      } else {
+        const best = Object.entries(score).sort((a, b) => b[1] - a[1])[0][0];
+        const r = results[best];
+        quizBox.innerHTML = `
+          <div class="quiz-progress">${bars}</div>
+          <div class="result">
+            <div class="result-emoji">${r.e}</div>
+            <h3>${r.t}</h3>
+            <p>${r.d}</p>
+            <button class="btn" type="button" id="retry">Take it again</button>
+          </div>`;
+      }
+    }
+    quizBox.addEventListener("click", e => {
+      const opt = e.target.closest(".option");
+      if (opt) {
+        score[opt.dataset.k] = (score[opt.dataset.k] || 0) + 1;
+        step++;
+        renderQuiz();
+      } else if (e.target.id === "retry") {
+        step = 0; score = {};
+        renderQuiz();
+      }
+    });
+    renderQuiz();
+
+    /* ---------- Reveal on scroll ---------- */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        en.target.classList.add("in");
+        const bar = en.target.querySelector(".summit-bar span");
+        if (bar) bar.style.width = bar.dataset.w + "%";
+        io.unobserve(en.target);
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+    onScroll();
+  </script>
 </body>
 </html>
