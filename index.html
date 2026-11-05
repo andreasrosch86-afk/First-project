@@ -171,6 +171,28 @@
     }
     .unit-toggle button.active { background: var(--text); color: #fff; }
 
+    /* Photo */
+    .photo-section { padding-top: 0; }
+    .photo {
+      position: relative; margin: 0; border-radius: 24px; overflow: hidden;
+      box-shadow: 0 20px 50px rgba(31, 26, 43, 0.25);
+    }
+    .photo img {
+      display: block; width: 100%; height: clamp(340px, 60vw, 620px); object-fit: cover;
+      transform: scale(1.03); transition: transform 1.2s ease;
+    }
+    .photo:hover img { transform: scale(1.08); }
+    .photo figcaption {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: 60px clamp(18px, 4vw, 36px) 22px;
+      background: linear-gradient(transparent, rgba(15, 20, 45, 0.85));
+      color: #fff;
+    }
+    .photo h3 { font-size: clamp(1.6rem, 4vw, 2.4rem); }
+    .photo p { margin: 6px 0 0; max-width: 52ch; opacity: 0.9; }
+    .photo-credit { margin-top: 10px; font-size: 0.8rem; color: var(--muted); }
+    .photo-credit a { color: var(--muted); }
+
     /* Facts */
     .facts-bg { background: var(--m4); color: #f1efff; }
     .facts-bg .section-head p { color: #b9b2cc; }
@@ -309,6 +331,24 @@
           </div>
         </div>
         <div class="summits" id="summitList"></div>
+      </div>
+    </section>
+
+    <!-- ---------- Photo ---------- -->
+    <section class="photo-section" id="photo">
+      <div class="wrap">
+        <figure class="photo reveal">
+          <img src="images/matterhorn.jpg" alt="The snow-covered pyramid of the Matterhorn against a deep blue sky" width="1610" height="1073" loading="lazy">
+          <figcaption>
+            <h3>The Matterhorn, 4,478 m</h3>
+            <p>Not one of the Seven Summits, but probably the most famous silhouette in the Alps. It sits on the border between Switzerland and Italy.</p>
+          </figcaption>
+        </figure>
+        <p class="photo-credit">
+          Photo: chil (Camptocamp.org), derivative work by Zacharie Grossen, via
+          <a href="https://commons.wikimedia.org/wiki/File:Matterhorn_from_Domh%C3%BCtte_-_2.jpg">Wikimedia Commons</a>,
+          <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>.
+        </p>
       </div>
     </section>
 
