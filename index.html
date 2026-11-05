@@ -193,6 +193,29 @@
     .photo-credit { margin-top: 10px; font-size: 0.8rem; color: var(--muted); }
     .photo-credit a { color: var(--muted); }
 
+    /* Live DB table */
+    .db-card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: 20px;
+      box-shadow: var(--shadow); overflow-x: auto;
+    }
+    .db-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    .db-table th, .db-table td { padding: 14px 20px; text-align: left; border-bottom: 1px solid var(--line); }
+    .db-table th {
+      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 600;
+    }
+    .db-table tr:last-child td { border-bottom: 0; }
+    .db-table td:first-child { color: var(--muted); font-variant-numeric: tabular-nums; width: 1%; }
+    .db-table td:nth-child(2) { font-weight: 600; }
+    .db-status { padding: 20px; color: var(--muted); }
+    .db-badge {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 14px;
+      font-size: 0.85rem; font-weight: 600; color: var(--accent-2);
+    }
+    .db-badge::before {
+      content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor;
+    }
+    .db-badge.err { color: var(--accent); }
+
     /* Facts */
     .facts-bg { background: var(--m4); color: #f1efff; }
     .facts-bg .section-head p { color: #b9b2cc; }
@@ -349,6 +372,24 @@
           <a href="https://commons.wikimedia.org/wiki/File:Matterhorn_from_Domh%C3%BCtte_-_2.jpg">Wikimedia Commons</a>,
           <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>.
         </p>
+      </div>
+    </section>
+
+    <!-- ---------- Live from Supabase ---------- -->
+    <section class="db-section" id="database">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="eyebrow">Live from the database</div>
+          <h2>Alpine peaks</h2>
+          <p>These rows are loaded straight from the <code>sample_table</code> table in Supabase each time the page opens.</p>
+          <div class="db-badge" id="dbBadge">Connecting…</div>
+        </div>
+        <div class="db-card reveal">
+          <table class="db-table">
+            <thead><tr><th>ID</th><th>Name</th><th>Description</th></tr></thead>
+            <tbody id="dbRows"><tr><td colspan="3" class="db-status">Loading…</td></tr></tbody>
+          </table>
+        </div>
       </div>
     </section>
 
@@ -561,6 +602,30 @@
       }
     });
     renderQuiz();
+
+    /* ---------- Supabase: sample_table ---------- */
+    // The publishable key is meant for browsers; Row Level Security limits it to reading this table.
+    const SUPABASE_URL = "https://jksyykxrwxmaxpbvksua.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_qhs1Y99JMYJmd2QakjuuOg_v9hNxluG";
+    const dbRows = document.getElementById("dbRows");
+    const dbBadge = document.getElementById("dbBadge");
+    const esc = (v) => String(v ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+    fetch(`${SUPABASE_URL}/rest/v1/sample_table?select=id,name,description&order=id`, {
+      headers: { apikey: SUPABASE_KEY },
+    })
+      .then(r => r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`)))
+      .then(rows => {
+        dbRows.innerHTML = rows.length
+          ? rows.map(r => `<tr><td>${esc(r.id)}</td><td>${esc(r.name)}</td><td>${esc(r.description)}</td></tr>`).join("")
+          : `<tr><td colspan="3" class="db-status">The table is empty.</td></tr>`;
+        dbBadge.textContent = `Connected · ${rows.length} row${rows.length === 1 ? "" : "s"}`;
+      })
+      .catch(err => {
+        dbRows.innerHTML = `<tr><td colspan="3" class="db-status">Couldn't load data (${esc(err.message)}).</td></tr>`;
+        dbBadge.textContent = "Not connected";
+        dbBadge.classList.add("err");
+      });
 
     /* ---------- Reveal on scroll ---------- */
     const io = new IntersectionObserver(entries => {
